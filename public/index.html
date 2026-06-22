@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>雲端記帳本</title>
+  <style>
+    .hidden { display: none; }
+    .summary { display: flex; gap: 20px; font-weight: bold; margin: 15px 0; }
+  </style>
+</head>
+<body>
+
+  <div id="auth-section">
+    <h2>使用者登入 / 註冊</h2>
+    <input type="text" id="username" placeholder="帳號"><br><br>
+    <input type="password" id="password" placeholder="密碼 (至少6個字)"><br><br>
+    <button onclick="handleAuth('login')">登入</button>
+    <button onclick="handleAuth('register')">註冊</button>
+  </div>
+
+  <div id="app-section" class="hidden">
+    <h2>雲端記帳本 <button onclick="handleLogout()">登出</button></h2>
+    
+    <div class="summary">
+      <div>總收入: $<span id="total-income">0</span></div>
+      <div>總支出: $<span id="total-expense">0</span></div>
+      <div>資產剩餘: $<span id="total-balance">0</span></div>
+    </div>
+
+    <h3>新增帳目</h3>
+    <form id="ledger-form" onsubmit="addRecord(event)">
+      <select id="type" required>
+        <option value="expense">支出</option>
+        <option value="income">收入</option>
+      </select>
+      <select id="category" required>
+        <option value="餐飲">餐飲</option>
+        <option value="交通">交通</option>
+        <option value="娛樂">娛樂</option>
+        <option value="其他">其他</option>
+      </select>
+      <input type="number" id="amount" placeholder="金額" required min="1">
+      <input type="text" id="description" placeholder="備註">
+      <button type="submit">新增記帳</button>
+    </form>
+
+    <h3>我的歷史帳目</h3>
+    <table border="1" cellpadding="8">
+      <thead>
+        <tr>
+          <th>類型</th>
+          <th>分類</th>
+          <th>金額</th>
+          <th>備註</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="record-list"></tbody>
+    </table>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
